@@ -3,10 +3,10 @@ import turtle as t
 t.setup(width=0.75, height=0.75, startx=None, starty=None)
 t.hideturtle()
 t.delay(0)
-t.tracer(n=1000)
+t.tracer(n=3000)
 # config init
-size =  {"h":170,"w":250}
-ruleType = 90
+size =  {"h":100,"w":250}
+ruleType = 120
 
 map = []
 result = []
@@ -52,6 +52,24 @@ def getTurtlePos(h,w):
   x = (w - size["w"]//2) * 4 - 2
   y = h * (-4) + 320
   return (x,y)
+def fillTurtle(pos1,pos2):
+  if pos1[0] > pos2[0]:
+    x = (pos2[0],pos1[1])
+    y = (pos1[0],pos2[1])
+    fillTurtle(x,y)
+  elif pos1[1] > pos2[1]:
+    x = (pos1[0],pos2[1])
+    y = (pos2[0],pos2[1])
+    fillTurtle(x,y)
+  else:
+    t.up()
+    t.goto(pos1[0],pos1[1])
+    t.down()
+    for i in range(int(pos2[0] - pos1[0] + 1)):
+      t.goto(t.xcor(),pos2[1])
+      t.goto(t.xcor()+1,pos1[1])
+    t.goto(t.xcor(),pos2[1])
+  t.up()
 text = ""
 for i in map[0]:
   text+=texts[i]
@@ -76,6 +94,7 @@ def paintSquare():
     t.forward(4)
   t.up()
 paintSquare()
+fillTurtle((-2,316),(2,320))
 t.up()
 for h in range(1,size["h"]):
   for w in range(size["w"]):
@@ -83,4 +102,5 @@ for h in range(1,size["h"]):
     if map[h][w] == 1:
       t.goto(getTurtlePos(h,w)[0],getTurtlePos(h,w)[1])
       paintSquare()
+      fillTurtle((getTurtlePos(h,w)[0],getTurtlePos(h,w)[1]-4),(getTurtlePos(h,w)[0]+4,getTurtlePos(h,w)[1]))
 t.mainloop()
