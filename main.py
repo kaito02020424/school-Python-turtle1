@@ -3,10 +3,10 @@ import turtle as t
 t.setup(width=0.75, height=0.75, startx=None, starty=None)
 t.hideturtle()
 t.delay(0)
-t.tracer(n=3000)
+t.tracer(n=10000)
 # config init
-size =  {"h":100,"w":250}
-ruleType = 120
+size =  {"h":140,"w":250}
+ruleType = 93
 
 map = []
 result = []
@@ -70,20 +70,6 @@ def fillTurtle(pos1,pos2):
       t.goto(t.xcor()+1,pos1[1])
     t.goto(t.xcor(),pos2[1])
   t.up()
-text = ""
-for i in map[0]:
-  text+=texts[i]
-for h in range(1,size["h"]):
-  print(text)
-  text = ""
-  for w in range(size["w"]):
-    map[h][w] = getColor(h,w)
-    text += texts[getColor(h,w)]
-print(text)
-
-print("Rule Set:")
-print("Black:",black)
-print("White:",white)
 t.up()
 t.seth(90)
 t.goto(-2,320)
@@ -96,11 +82,23 @@ def paintSquare():
 paintSquare()
 fillTurtle((-2,316),(2,320))
 t.up()
+text = ""
+for i in map[0]:
+  text+=texts[i]
 for h in range(1,size["h"]):
+  print(text)
+  text = ""
   for w in range(size["w"]):
+    map[h][w] = getColor(h,w)
+    text += texts[getColor(h,w)]
     t.up()
     if map[h][w] == 1:
       t.goto(getTurtlePos(h,w)[0],getTurtlePos(h,w)[1])
       paintSquare()
       fillTurtle((getTurtlePos(h,w)[0],getTurtlePos(h,w)[1]-4),(getTurtlePos(h,w)[0]+4,getTurtlePos(h,w)[1]))
+print(text)
+
+print("Rule Set:")
+print("Black:",black)
+print("White:",white)
 t.mainloop()
