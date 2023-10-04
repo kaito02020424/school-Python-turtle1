@@ -7,8 +7,8 @@ t.hideturtle()
 t.delay(0)
 t.tracer(n=10000)
 # config init
-size =  {"h":140,"w":250}
-ruleType = 93
+size = config["size"]
+ruleType = config["mode"]
 
 map = []
 result = []
