@@ -1,12 +1,14 @@
 #! /bin/env python3
 import turtle as t
+import json
+config = json.load(open("./config.json","r"))
 t.setup(width=0.75, height=0.75, startx=None, starty=None)
 t.hideturtle()
 t.delay(0)
 t.tracer(n=3000)
 # config init
-size =  {"h":100,"w":250}
-ruleType = 120
+size = config["size"]
+ruleType = config["mode"]
 
 map = []
 result = []
